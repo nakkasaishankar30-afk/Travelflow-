@@ -1,0 +1,8 @@
+{
+  "name": "Travel Flow",
+  "description": "The ultimate full-stack travel companion. Plan AI itineraries, book hotels/flights/cabs, and explore the best of India and the World.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

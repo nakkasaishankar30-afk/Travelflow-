@@ -1,0 +1,249 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "phone": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "destination": {
+      "title": "Destination",
+      "description": "Travel destinations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "state": { "type": "string" },
+        "description": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "coverImage": { "type": "string" },
+        "bestTimeToVisit": { "type": "string" },
+        "averageBudget": { "type": "number" }
+      },
+      "required": ["id", "name", "description"]
+    },
+    "place": {
+      "title": "Place",
+      "description": "Specific points of interest in a destination",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "destinationId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "entryFee": { "type": "number" },
+        "openingTime": { "type": "string" },
+        "closingTime": { "type": "string" },
+        "rating": { "type": "number" }
+      },
+      "required": ["id", "destinationId", "name"]
+    },
+    "hotel": {
+      "title": "Hotel",
+      "description": "Hotel accommodation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "destinationId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "address": { "type": "string" },
+        "rating": { "type": "number" },
+        "priceFrom": { "type": "number" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "partnerId": { "type": "string" },
+        "commissionType": { "type": "string", "enum": ["PERCENTAGE", "FIXED_AMOUNT"] },
+        "commissionValue": { "type": "number" }
+      },
+      "required": ["id", "name", "priceFrom"]
+    },
+    "trip": {
+      "title": "Trip",
+      "description": "User planned trip",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "destinationId": { "type": "string" },
+        "tripName": { "type": "string" },
+        "startDate": { "type": "string", "format": "date" },
+        "endDate": { "type": "string", "format": "date" },
+        "budget": { "type": "number" },
+        "travelers": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "tripName"]
+    },
+    "booking": {
+      "title": "Booking",
+      "description": "Travel bookings (Hotel, Flight, Cab, Activity)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "tripId": { "type": "string" },
+        "bookingType": { "type": "string", "enum": ["HOTEL", "FLIGHT", "CAB", "ACTIVITY"] },
+        "partnerId": { "type": "string" },
+        "amount": { "type": "number" },
+        "commissionAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"] },
+        "bookingDate": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "bookingType", "amount", "status"]
+    },
+    "payment": {
+      "title": "Payment",
+      "description": "Transaction records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "bookingId": { "type": "string" },
+        "amount": { "type": "number" },
+        "gateway": { "type": "string" },
+        "gatewayOrderId": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "amount", "status"]
+    },
+    "subscription": {
+      "title": "Premium Subscription",
+      "description": "User premium plans",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "planId": { "type": "string" },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "userId", "planId", "status"]
+    },
+    "review": {
+      "title": "Review",
+      "description": "User ratings and comments",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "destinationId": { "type": "string" },
+        "destinationName": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "placeId": { "type": "string" },
+        "hotelId": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "destinationId", "rating"]
+    },
+    "checklistItem": {
+      "title": "Checklist Item",
+      "description": "Individual task in a packing checklist",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "task": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "task", "completed"]
+    },
+    "favorite": {
+      "title": "Favorite Destination",
+      "description": "User saved/bookmarked destinations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "destinationId": { "type": "string" },
+        "destinationName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["destinationId"]
+    },
+    "referralClick": {
+      "title": "Partner Referral Click",
+      "description": "Tracks clicks to partner booking websites and eligible bookings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "partnerName": { "type": "string" },
+        "category": { "type": "string", "enum": ["hotel", "flight", "cab", "activity"] },
+        "destination": { "type": "string" },
+        "referralUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["clicked", "eligible", "confirmed"] },
+        "potentialCommission": { "type": "number" },
+        "partnerBookingRef": { "type": "string" },
+        "clickedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "partnerName", "category", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "User profile collection"
+    },
+    "/destinations/{destId}": {
+      "schema": "destination",
+      "description": "Global destinations"
+    },
+    "/destinations/{destId}/places/{placeId}": {
+      "schema": "place",
+      "description": "Places of interest"
+    },
+    "/destinations/{destId}/hotels/{hotelId}": {
+      "schema": "hotel",
+      "description": "Available hotels"
+    },
+    "/users/{userId}/itineraries/{itineraryId}": {
+      "schema": "trip",
+      "description": "User trips (itineraries)"
+    },
+    "/users/{userId}/favorites/{favoriteId}": {
+      "schema": "favorite",
+      "description": "User favorite destinations"
+    },
+    "/users/{userId}/bookings/{bookingId}": {
+      "schema": "booking",
+      "description": "User bookings"
+    },
+    "/users/{userId}/payments/{payId}": {
+      "schema": "payment",
+      "description": "User payments"
+    },
+    "/users/{userId}/subscriptions/{subId}": {
+      "schema": "subscription",
+      "description": "Premium status"
+    },
+    "/users/{userId}/checklists/{destId}/items/{itemId}": {
+      "schema": "checklistItem",
+      "description": "Packing checklist items per destination"
+    },
+    "/users/{userId}/referralClicks/{clickId}": {
+      "schema": "referralClick",
+      "description": "User partner referral clicks and eligible bookings"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "review",
+      "description": "Global reviews"
+    }
+  }
+}
